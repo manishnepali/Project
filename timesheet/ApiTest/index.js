@@ -8,12 +8,13 @@ const port = 3000
 
 
 
-const test = "http://{JIRA_BASE_URL}/rest/tempo-timesheets/4/timesheet-approval"
-  await fetch('https://abano-playground.atlassian.net/rest/api/3/project', {
+const test = "http://{JIRA_BASE_URL}/rest/tempo-timesheets/4/timesheet-approval, http://{JIRA_BASE_URL}/rest/tempo-teams/2/team"
+ // await fetch('https://abano-playground.atlassian.net/rest/api/3/project', {
+    await fetch('https://abano-playground.atlassian.net/rest/api/3/issue/TT-1/worklog', {
   method: 'GET',
   headers: {
     'Authorization': `Basic ${Buffer.from(
-      'manish.nepali@abano.be:DQKKoclBDvXu0rFLup6w10B2'
+      'manish.nepali@abano.be:2olF6uMJ7crhPyEgS68OEC4A'
     ).toString('base64')}`,
     'Accept': 'application/json'
   }
@@ -26,6 +27,8 @@ const test = "http://{JIRA_BASE_URL}/rest/tempo-timesheets/4/timesheet-approval"
   })
   .then(text => app.get('/', (req, res) => {
     res.send(text)
+    console.log(text)
+  
   }))
   .catch(err => console.error(err));
 
