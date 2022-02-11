@@ -1,23 +1,48 @@
-// const fetch = require('node-fetch');
+import express, { response, text } from 'express';
 import fetch from 'node-fetch';
 
-const test = "http://{JIRA_BASE_URL}/rest/tempo-timesheets/4/timesheet-approval/pending"
 
-  await fetch('https://abano-playground.atlassian.net/rest/workload-schemes', {
+const app = express()
+const port = 3000
+
+
+const bodyData = `{
+  "ids": [
+    1,
+    2,
+    5,
+    10
+  ]
+}`;
+
+
+    await fetch('https://abano-playground.atlassian.net/rest/api/3/issue/TT-1/worklog', {
   method: 'GET',
   headers: {
     'Authorization': `Basic ${Buffer.from(
-      'manish.nepali@abano.be:2DIT995tAEWgQDBYyChP2R1DSTyLNO'
+      'manish.nepali@abano.be:2olF6uMJ7crhPyEgS68OEC4A'
     ).toString('base64')}`,
-    'Accept': 'application/json'
-  }
+    'Accept': 'application/json',
+  },
+ 
 })
   .then(response => {
     console.log(
       `Response: ${response.status} ${response.statusText}`
     )
-    return response.text();
+    return response.json();
   })
-  .then(text => console.log(text))
+  .then(text => app.get('/', (req, res) => {
+    res.send(text)
+    console.log(text)
+   
+  
+  }))
   .catch(err => console.error(err));
 
+
+
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
